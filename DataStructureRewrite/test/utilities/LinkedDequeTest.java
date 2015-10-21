@@ -12,11 +12,11 @@ public class LinkedDequeTest {
 
 	private static final int SMALL_LIMIT = 10;
 	private static final int LARGE_LIMIT = 100000000;
-	// Takes ~317  seconds when LARGE_LIMIT = 100000000
-	// Takes ~9.2  seconds when LARGE_LIMIT =  10000000
-	// Takes ~.1   seconds when LARGE_LIMIT =   1000000
-	// Takes ~.015 seconds when LARGE_LIMIT =    100000
-	// Takes ~.005 seconds when LARGE_LIMIT =     10000
+	// Takes ~317 seconds when LARGE_LIMIT = 100000000
+	// Takes ~9.2 seconds when LARGE_LIMIT = 10000000
+	// Takes ~.1 seconds when LARGE_LIMIT = 1000000
+	// Takes ~.015 seconds when LARGE_LIMIT = 100000
+	// Takes ~.005 seconds when LARGE_LIMIT = 10000
 
 	private Deque<Integer> deque0;
 
