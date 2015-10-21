@@ -11,8 +11,9 @@ import org.junit.Test;
 public class LinkedBinaryTreeTest {
 
 	private static final int SMALL_LIMIT = 10;
-	private static final int LARGE_LIMIT = 100000000;
-	// Takes ~317 seconds when LARGE_LIMIT = 100000000
+	private static final int LARGE_LIMIT = 10000;
+	// Takes ~315 seconds when LARGE_LIMIT = 100000000
+	// At ~315 seconds, garbage collector overhead limit exceeded
 	// Takes ~18 seconds when LARGE_LIMIT = 10000000
 	// Takes ~1.6 seconds when LARGE_LIMIT = 1000000
 	// Takes ~.015 seconds when LARGE_LIMIT = 100000
