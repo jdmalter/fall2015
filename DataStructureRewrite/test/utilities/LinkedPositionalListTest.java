@@ -123,6 +123,19 @@ public class LinkedPositionalListTest {
 	}
 
 	@Test
+	public void testIterator() {
+		testAddLast();
+		Iterator<Integer> iterator = list0.iterator();
+		for (int i = 0; i < SMALL_LIMIT; i++) {
+			assertEquals(iterator.hasNext(), true);
+			assertEquals(iterator.next().intValue(), i);
+			iterator.remove();
+			assertEquals(list0.size(), SMALL_LIMIT - i - 1);
+		}
+		assertEquals(iterator.hasNext(), false);
+	}
+
+	@Test
 	public void testLimits() {
 		for (int i = 0; i < LARGE_LIMIT; i++) {
 			list0.addLast(i);

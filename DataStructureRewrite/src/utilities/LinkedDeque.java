@@ -46,4 +46,9 @@ public class LinkedDeque<E> implements Deque<E> {
 		return list.last() == null ? null : list.last().getData();
 	}
 
+	@Override
+	public Iterator<E> iterator() {
+		return list.iterator();
+	}
+
 }

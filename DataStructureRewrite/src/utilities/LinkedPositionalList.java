@@ -1,58 +1,118 @@
 package utilities;
 
+import java.util.NoSuchElementException;
+
 /**
  * @author Jacob Malter learning from Data Structures and Algorithms in Java
  */
 public class LinkedPositionalList<E> implements PositionalList<E> {
 
+	private class PositionIterator implements Iterator<Position<E>> {
+
+		private Position<E> cursor;
+		private Position<E> recent;
+
+		public PositionIterator() {
+			cursor = first();
+		}
+
+		@Override
+		public boolean hasNext() {
+			return cursor != null;
+		}
+
+		@Override
+		public Position<E> next() {
+			if (cursor == null)
+				throw new NoSuchElementException();
+			recent = cursor;
+			cursor = after(cursor);
+			return recent;
+		}
+
+		@Override
+		public void remove() {
+			if (recent == null)
+				throw new IllegalStateException();
+			LinkedPositionalList.this.remove(recent);
+			recent = null;
+		}
+
+	}
+
+	private class ElementIterator implements Iterator<E> {
+
+		Iterator<Position<E>> positionIterator;
+
+		public ElementIterator() {
+			positionIterator = new PositionIterator();
+		}
+
+		@Override
+		public boolean hasNext() {
+			return positionIterator.hasNext();
+		}
+
+		@Override
+		public E next() {
+			return positionIterator.next().getData();
+		}
+
+		@Override
+		public void remove() {
+			positionIterator.remove();
+		}
+
+	}
+	
 	private static class Node<E> implements Position<E> {
 
 		private Node<E> next, prev;
 		private E data;
-		
+
 		public Node(E data) {
 			this.data = data;
 		}
-		
+
 		@Override
 		public E getData() {
-			if (next == null || prev ==  null)
+			if (next == null || prev == null)
 				throw new IllegalStateException();
 			return data;
 		}
-	
+
 		public Node<E> getPrev() {
 			return prev;
 		}
-		
+
 		public Node<E> getNext() {
 			return next;
 		}
-		
+
 		public void setData(E data) {
 			this.data = data;
 		}
-		
+
 		public void setPrev(Node<E> node) {
 			prev = node;
 		}
-		
+
 		public void setNext(Node<E> node) {
 			next = node;
 		}
-		
+
 	}
-	
+
 	private Node<E> head, tail;
 	private int size;
-	
+
 	public LinkedPositionalList() {
 		head = new Node<E>(null);
 		tail = new Node<E>(null);
 		tail.setPrev(head);
 		head.setNext(tail);
 	}
-	
+
 	@Override
 	public int size() {
 		return size;
@@ -66,13 +126,13 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
 			return null;
 		return node;
 	}
-	
+
 	private Position<E> position(Node<E> node) {
 		if (node == head || node == tail)
 			return null;
 		return node;
 	}
-	
+
 	@Override
 	public Position<E> first() {
 		return position(head.getNext());
@@ -104,7 +164,7 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
 		size++;
 		return insert;
 	}
-	
+
 	@Override
 	public Position<E> addFirst(E data) {
 		return addBetween(head, head.getNext(), data);
@@ -149,6 +209,11 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
 		node.setPrev(null);
 		node = null;
 		return result;
+	}
+
+	@Override
+	public Iterator<E> iterator() {
+		return new ElementIterator();
 	}
 
 }
