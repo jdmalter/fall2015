@@ -5,11 +5,11 @@ import java.util.NoSuchElementException;
 /**
  * @author Jacob Malter learning from Data Structures and Algorithms in Java
  */
-public class UnsortedMapTable<K, V> extends AbstractMap<K, V> {
+public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 
 	private ArrayList<MapEntry<K, V>> table;
 
-	public UnsortedMapTable() {
+	public UnsortedTableMap() {
 		table = new ArrayList<MapEntry<K, V>>();
 	}
 

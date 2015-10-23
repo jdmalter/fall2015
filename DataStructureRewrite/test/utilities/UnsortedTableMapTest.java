@@ -8,10 +8,10 @@ import org.junit.Test;
 /**
  * @author Jacob Malter
  */
-public class UnsortedMapTableTest {
+public class UnsortedTableMapTest {
 
 	private static final int SMALL_LIMIT = 30;
-	private static final int LARGE_LIMIT = 1000000;
+	private static final int LARGE_LIMIT = 1000;
 	// Takes ~22 seconds when LARGE_LIMIT = 100000
 	// Takes ~.3 seconds when LARGE_LIMIT = 10000
 	// Takes ~.03 seconds when LARGE_LIMIT = 1000
@@ -25,7 +25,7 @@ public class UnsortedMapTableTest {
 
 	@Test
 	public void testUnsortedMapTable() {
-		map0 = new UnsortedMapTable<Integer, Integer>();
+		map0 = new UnsortedTableMap<Integer, Integer>();
 		assertEquals(map0.size(), 0);
 		assertEquals(map0.get(0), null);
 		assertEquals(map0.remove(0), null);
