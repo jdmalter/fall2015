@@ -71,7 +71,7 @@ public class HeapPriorityQueue<K extends Comparable<? super K>, V> extends
 	private void upheap(int j) {
 		while (j > 0) {
 			int p = parent(j);
-			if (compare(heap[j], heap[p]) >= 0)
+			if (compare(heap[j].getKey(), heap[p].getKey()) >= 0)
 				break;
 			swap(j, p);
 			j = p;
@@ -84,10 +84,10 @@ public class HeapPriorityQueue<K extends Comparable<? super K>, V> extends
 			int smallIndex = leftIndex;
 			if (hasRight(j)) {
 				int rightIndex = right(j);
-				if (compare(heap[leftIndex], heap[rightIndex]) > 0)
+				if (compare(heap[leftIndex].getKey(), heap[rightIndex].getKey()) > 0)
 					smallIndex = rightIndex;
 			}
-			if (compare(heap[smallIndex], heap[j]) >= 0)
+			if (compare(heap[smallIndex].getKey(), heap[j].getKey()) >= 0)
 				break;
 			swap(j, smallIndex);
 			j = smallIndex;

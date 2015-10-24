@@ -37,9 +37,8 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 	@Override
 	public V put(K key, V value) {
 		int j = findIndex(key);
-		int size = table.size();
 		if (j == -1) {
-			table.add(size, new MapEntry<K, V>(key, value));
+			table.add(table.size(), new MapEntry<K, V>(key, value));
 			return null;
 		} else
 			return table.get(j).setValue(value);

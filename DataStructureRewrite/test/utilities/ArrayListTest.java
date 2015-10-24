@@ -11,9 +11,9 @@ import org.junit.Test;
 public class ArrayListTest {
 
 	private static final int SMALL_LIMIT = 30;
-	private static final int LARGE_LIMIT = 1000;
+	private static final int LARGE_LIMIT = 100000;
 	// Takes ~685 seconds when LARGE_LIMIT = 1000000
-	// Takes ~6.7 seconds when LARGE_LIMIT = 100000
+	// Takes ~3.5 seconds when LARGE_LIMIT = 100000
 	// Takes ~.1 seconds when LARGE_LIMIT = 10000
 	// Takes ~.016 seconds when LARGE_LIMIT = 1000
 

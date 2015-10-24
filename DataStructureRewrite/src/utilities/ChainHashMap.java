@@ -60,9 +60,8 @@ public class ChainHashMap<K, V> extends AbstractHashMap<K, V> {
 		for (int i = 0; i < capacity; i++)
 			if (table[i] != null) {
 				Iterator<Entry<K, V>> entries = table[i].entrySet().iterator();
-				int j = 0;
 				while (entries.hasNext())
-					buffer.add(j++, entries.next());
+					buffer.add(buffer.size(), entries.next());
 			}
 		return buffer;
 	}

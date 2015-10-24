@@ -3,7 +3,8 @@ package utilities;
 /**
  * @author Jacob Malter learning from Data Structures and Algorithms in Java
  */
-public interface SortedMap<K, V> extends Map<K, V> {
+public interface SortedMap<K extends Comparable<? super K>, V> extends
+		Map<K, V> {
 
 	Entry<K, V> firstEntry();
 
@@ -17,6 +18,6 @@ public interface SortedMap<K, V> extends Map<K, V> {
 
 	Entry<K, V> higherEntry(K key);
 
-	Iterable<Entry<K,V>> subMap(K key1, K key2);
-	
+	Iterable<Entry<K, V>> subMap(K key1, K key2);
+
 }
