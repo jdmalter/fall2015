@@ -25,12 +25,12 @@ public abstract class AbstractBinaryTree<E> extends AbstractTree<E> implements
 	}
 
 	@Override
-	public Position<E>[] children(Position<E> position) {
-		@SuppressWarnings("unchecked")
-		// wont add Position<T> or Position<!E>
-		Position<E>[] result = (Position<E>[]) new Position[2];
-		result[0] = left(position) == null ? null : left(position);
-		result[1] = right(position) == null ? null : right(position);
+	public Iterable<Position<E>> children(Position<E> position) {
+		List<Position<E>> result = new ArrayList<Position<E>>(2);
+		if (left(position) != null)
+			result.add(result.size(), left(position));
+		if (right(position) != null)
+			result.add(result.size(), right(position));
 		return result;
 	}
 

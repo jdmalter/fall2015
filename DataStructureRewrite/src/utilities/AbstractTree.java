@@ -29,10 +29,12 @@ public abstract class AbstractTree<E> implements Tree<E> {
 
 	public int height(Position<E> position) {
 		int h = 0;
-		Position<E>[] children = children(position);
-		for (int i = 0; i < children.length; i++)
-			if (1 + height(children[i]) > h)
-				h = 1 + height(children[i]);
+		Iterator<Position<E>> children = children(position).iterator();
+		while (children.hasNext()) {
+			Position<E> current = children.next();
+			if (1 + height(current) > h)
+				h = 1 + height(current);
+		}
 		return h;
 	}
 

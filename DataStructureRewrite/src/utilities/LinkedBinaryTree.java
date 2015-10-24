@@ -162,4 +162,84 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 		return result;
 	}
 
+	private class ElementIterator implements Iterator<E> {
+
+		Iterator<Position<E>> positionIterator;
+
+		public ElementIterator() {
+			positionIterator = position().iterator();
+		}
+
+		@Override
+		public boolean hasNext() {
+			return positionIterator.hasNext();
+		}
+
+		@Override
+		public E next() {
+			return positionIterator.next().getData();
+		}
+
+		@Override
+		public void remove() {
+			positionIterator.remove();
+		}
+
+	}
+
+	private void preorderSubtree(Position<E> position, List<Position<E>> list) {
+		list.add(list.size(), position);
+		if (left(position) != null)
+			inorderSubtree(left(position), list);
+		if (right(position) != null)
+			inorderSubtree(right(position), list);
+	}
+
+	public Iterable<Position<E>> preorder() {
+		List<Position<E>> result = new ArrayList<Position<E>>();
+		if (size() != 0)
+			preorderSubtree(root(), result);
+		return result;
+	}
+
+	private void postorderSubtree(Position<E> position, List<Position<E>> list) {
+		if (left(position) != null)
+			inorderSubtree(left(position), list);
+		if (right(position) != null)
+			inorderSubtree(right(position), list);
+		list.add(list.size(), position);
+	}
+
+	public Iterable<Position<E>> postorder() {
+		List<Position<E>> result = new ArrayList<Position<E>>();
+		if (size() != 0)
+			postorderSubtree(root(), result);
+		return result;
+	}
+
+	private void inorderSubtree(Position<E> position, List<Position<E>> list) {
+		if (left(position) != null)
+			inorderSubtree(left(position), list);
+		list.add(list.size(), position);
+		if (right(position) != null)
+			inorderSubtree(right(position), list);
+	}
+
+	public Iterable<Position<E>> inorder() {
+		List<Position<E>> result = new ArrayList<Position<E>>();
+		if (size() != 0)
+			inorderSubtree(root(), result);
+		return result;
+	}
+
+	@Override
+	public Iterable<Position<E>> position() {
+		return inorder();
+	}
+
+	@Override
+	public Iterator<E> iterator() {
+		return new ElementIterator();
+	}
+
 }

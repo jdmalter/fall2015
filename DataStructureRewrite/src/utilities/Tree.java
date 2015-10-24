@@ -3,7 +3,7 @@ package utilities;
 /**
  * @author Jacob Malter learning from Data Structures and Algorithms in Java
  */
-public interface Tree<E> {
+public interface Tree<E> extends Iterable<E> {
 
 	int size();
 
@@ -11,7 +11,7 @@ public interface Tree<E> {
 
 	Position<E> parent(Position<E> position);
 
-	Position<E>[] children(Position<E> position);
+	Iterable<Position<E>> children(Position<E> position);
 
 	int sizeChildren(Position<E> position);
 
@@ -20,5 +20,7 @@ public interface Tree<E> {
 	boolean isExternal(Position<E> position);
 
 	boolean isRoot(Position<E> position);
+
+	Iterable<Position<E>> position();
 
 }
