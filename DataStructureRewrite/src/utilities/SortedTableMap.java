@@ -123,9 +123,4 @@ public class SortedTableMap<K extends Comparable<? super K>, V> extends
 		return snapshot(0, null);
 	}
 
-	@Override
-	public Iterable<Entry<K, V>> subMap(K key1, K key2) {
-		return snapshot(findIndex(key1), key2);
-	}
-
 }

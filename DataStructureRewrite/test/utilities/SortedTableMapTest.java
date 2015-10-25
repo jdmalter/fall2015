@@ -134,18 +134,6 @@ public class SortedTableMapTest {
 	}
 
 	@Test
-	public void testSubMap() {
-		testPut();
-		Iterator<Entry<Integer, Integer>> iterator = map0.subMap(10, 21)
-				.iterator();
-		for (int i = 10; i < 21; i++) {
-			int current = iterator.next().getKey();
-			assertTrue(10 <= current && current < 21);
-		}
-		assertEquals(iterator.hasNext(), false);
-	}
-
-	@Test
 	public void testLimits() {
 		for (int i = 0; i < LARGE_LIMIT; i++) {
 			map0.put(i, 2 * i);

@@ -18,6 +18,4 @@ public interface SortedMap<K extends Comparable<? super K>, V> extends
 
 	Entry<K, V> higherEntry(K key);
 
-	Iterable<Entry<K, V>> subMap(K key1, K key2);
-
 }

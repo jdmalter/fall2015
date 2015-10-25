@@ -5,6 +5,71 @@ package utilities;
  */
 public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 
+	protected static class BalanceableBinaryTree<K, V> extends
+			LinkedBinaryTree<Entry<K, V>> {
+
+		protected static class BSTNode<E> extends Node<E> {
+
+			private int aux;
+
+			public BSTNode(E data) {
+				super(data);
+				aux = 0;
+			}
+
+			public int getAux() {
+				return aux;
+			}
+
+			public void setAux(int aux) {
+				this.aux = aux;
+			}
+
+		}
+
+		public int getAux(Position<Entry<K, V>> position) {
+			return ((BSTNode<Entry<K, V>>) position).getAux();
+		}
+
+		public void setAux(Position<Entry<K, V>> position, int value) {
+			((BSTNode<Entry<K, V>>) position).setAux(value);
+		}
+
+		private void relink(Node<Entry<K, V>> parent, Node<Entry<K, V>> child,
+				boolean isLeftChild) {
+			child.setParent(parent);
+			if (isLeftChild)
+				parent.setLeft(child);
+			else
+				parent.setRight(child);
+		}
+
+		public void rotate(Position<Entry<K, V>> position) {
+			Node<Entry<K, V>> x = super.validate(position);
+			Node<Entry<K, V>> y = x.getParent();
+			Node<Entry<K, V>> z = y.getParent();
+			if (z == null) {
+				root = x;
+				x.setParent(null);
+			} else
+				relink(z, x, y == z.getLeft());
+		}
+
+		public Position<Entry<K, V>> restructure(Position<Entry<K, V>> child) {
+			Position<Entry<K, V>> parent = parent(child);
+			Position<Entry<K, V>> grandparent = parent(parent);
+			if ((child == right(parent)) == (parent == right(grandparent))) {
+				rotate(parent);
+				return parent;
+			} else {
+				rotate(child);
+				rotate(child);
+				return child;
+			}
+		}
+
+	}
+
 	private static class Node<E> implements Position<E> {
 
 		private E data;
@@ -49,7 +114,7 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 
 	}
 
-	private Node<E> root;
+	protected Node<E> root;
 	private int size;
 
 	public LinkedBinaryTree() {

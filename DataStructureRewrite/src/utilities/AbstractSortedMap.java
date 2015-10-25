@@ -8,13 +8,13 @@ import java.util.Comparator;
 public abstract class AbstractSortedMap<K extends Comparable<? super K>, V>
 		extends AbstractMap<K, V> implements SortedMap<K, V> {
 
-	private Comparator<K> comparator;
+	private Comparator<? super K> comparator;
 
 	public AbstractSortedMap() {
 		this(null);
 	}
 
-	public AbstractSortedMap(Comparator<K> comparator) {
+	public AbstractSortedMap(Comparator<? super K> comparator) {
 		if (comparator == null)
 			comparator = Comparator.nullsFirst(Comparator.naturalOrder());
 		this.comparator = comparator;
