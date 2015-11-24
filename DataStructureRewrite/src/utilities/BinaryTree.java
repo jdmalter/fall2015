@@ -1,5 +1,8 @@
 package utilities;
 
+
+import utilities.Position;
+
 /**
  * @author Jacob Malter learning from Data Structures and Algorithms in Java
  */

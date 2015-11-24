@@ -4,6 +4,9 @@ import java.util.Comparator;
 
 import utilities.LinkedBinaryTree.BalanceableBinaryTree;
 
+/**
+ * @author Jacob Malter learning from Data Structures and Algorithms in Java
+ */
 public class TreeMap<K extends Comparable<? super K>, V> extends
 		AbstractSortedMap<K, V> {
 
@@ -54,7 +57,7 @@ public class TreeMap<K extends Comparable<? super K>, V> extends
 		// Should do nothing; intended to be overridden by subclass
 	}
 
-	protected void rebalanceRemove(Position<Entry<K, V>> position) {
+	protected void rebalanceDelete(Position<Entry<K, V>> position) {
 		// Should do nothing; intended to be overridden by subclass
 	}
 
@@ -103,7 +106,7 @@ public class TreeMap<K extends Comparable<? super K>, V> extends
 			Position<Entry<K, V>> sibling = tree.sibling(leaf);
 			tree.remove(leaf);
 			tree.remove(position);
-			rebalanceRemove(sibling);
+			rebalanceDelete(sibling);
 			return result;
 		}
 	}

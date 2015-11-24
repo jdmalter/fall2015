@@ -1,5 +1,8 @@
 package utilities;
 
+
+import utilities.Position;
+
 /**
  * @author Jacob Malter learning from Data Structures and Algorithms in Java
  */
@@ -7,33 +10,6 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 
 	protected static class BalanceableBinaryTree<K, V> extends
 			LinkedBinaryTree<Entry<K, V>> {
-
-		protected static class BSTNode<E> extends Node<E> {
-
-			private int aux;
-
-			public BSTNode(E data) {
-				super(data);
-				aux = 0;
-			}
-
-			public int getAux() {
-				return aux;
-			}
-
-			public void setAux(int aux) {
-				this.aux = aux;
-			}
-
-		}
-
-		public int getAux(Position<Entry<K, V>> position) {
-			return ((BSTNode<Entry<K, V>>) position).getAux();
-		}
-
-		public void setAux(Position<Entry<K, V>> position, int value) {
-			((BSTNode<Entry<K, V>>) position).setAux(value);
-		}
 
 		private void relink(Node<Entry<K, V>> parent, Node<Entry<K, V>> child,
 				boolean isLeftChild) {
@@ -74,6 +50,7 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 
 		private E data;
 		private Node<E> parent, left, right;
+		private int aux;
 
 		public Node(E data) {
 			this.data = data;
@@ -100,6 +77,10 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 			this.data = data;
 		}
 
+		public int getAux() {
+			return aux;
+		}
+
 		public void setParent(Node<E> parent) {
 			this.parent = parent;
 		}
@@ -110,6 +91,10 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 
 		public void setRight(Node<E> right) {
 			this.right = right;
+		}
+
+		public void setAux(int aux) {
+			this.aux = aux;
 		}
 
 	}
@@ -225,6 +210,16 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 		node.setRight(null);
 		node = null;
 		return result;
+	}
+
+	public int getAux(Position<E> position) {
+		Node<E> node = validate(position);
+		return node.getAux();
+	}
+
+	public void setAux(Position<E> position, int value) {
+		Node<E> node = validate(position);
+		node.setAux(value);
 	}
 
 	private class ElementIterator implements Iterator<E> {
