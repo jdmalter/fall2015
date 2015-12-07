@@ -9,7 +9,7 @@ public class ListTest {
 
 	private static final int INVALID_INT = 255;
 	private static final Integer INVALID = new Integer(INVALID_INT);
-	private static final int SIZE = 42;
+	private static final int SIZE = 50;
 	private static final int LIMIT = 1000;
 
 	private List<Integer>[] lists;
@@ -28,8 +28,6 @@ public class ListTest {
 			lists[i].add(-1, INVALID);
 			assertEquals(lists[i].size(), 0);
 			lists[i].add(1, INVALID);
-			assertEquals(lists[i].size(), 0);
-			lists[i].add(0, null);
 			assertEquals(lists[i].size(), 0);
 			for (int j = 0; j < SIZE / 3; j++) {
 				assertEquals(lists[i].size(), j);
@@ -55,7 +53,6 @@ public class ListTest {
 		for (int i = 0; i < lists.length; i++) {
 			assertEquals(lists[i].set(-1, INVALID), null);
 			assertEquals(lists[i].set(SIZE, INVALID), null);
-			assertEquals(lists[i].set(0, null), null);
 			for (int j = 0; j < 3 * (SIZE / 3); j++) {
 				assertEquals(lists[i].set(j, 2 * j).intValue(), j);
 			}
@@ -108,6 +105,10 @@ public class ListTest {
 			for (int j = 0; j < SIZE / 3; j++)
 				assertEquals(lists[i].remove(lists[i].size() - 1).intValue(),
 						2 * (2 * (SIZE / 3) - j - 1));
+			lists[i].add(lists[i].size() / 2, null);
+			System.out.println(i);
+			assertEquals(lists[i].contains(null), true);
+			assertEquals(lists[i].remove(lists[i].indexOf(null)), null);
 		}
 	}
 

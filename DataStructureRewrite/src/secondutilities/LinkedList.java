@@ -25,7 +25,7 @@ public class LinkedList<E> extends AbstractList<E> {
 	 */
 	@Override
 	public void add(int index, E e) {
-		if (index < 0 || index > size || e == null)
+		if (index < 0 || index > size)
 			return;
 		Node<E> newNode = new Node<E>(e);
 
@@ -65,7 +65,7 @@ public class LinkedList<E> extends AbstractList<E> {
 	 */
 	@Override
 	public E set(int index, E e) {
-		if (index < 0 || index >= size || e == null)
+		if (index < 0 || index >= size)
 			return null;
 		Node<E> current = head;
 
@@ -79,12 +79,9 @@ public class LinkedList<E> extends AbstractList<E> {
 
 	@Override
 	public int indexOf(E e) {
-		if (e == null)
-			return -1;
 		int index = 0;
-
 		for (Node<E> current = head; current != null; current = current.next, index++)
-			if (current.e.equals(e))
+			if (current.e == null ? e == null : current.e.equals(e))
 				return index;
 		return -1;
 	}

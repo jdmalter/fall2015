@@ -17,7 +17,7 @@ public class CircularArray<E> extends AbstractList<E> {
 	 */
 	@Override
 	public void add(int index, E e) {
-		if (index < 0 || index > size || e == null)
+		if (index < 0 || index > size)
 			return;
 
 		if (size == elements.length - 1) {
@@ -51,7 +51,7 @@ public class CircularArray<E> extends AbstractList<E> {
 
 	@Override
 	public E set(int index, E e) {
-		if (index < 0 || index >= size || e == null)
+		if (index < 0 || index >= size)
 			return null;
 		E result = elements[translate(index)];
 
@@ -64,11 +64,9 @@ public class CircularArray<E> extends AbstractList<E> {
 	 */
 	@Override
 	public int indexOf(E e) {
-		if (e == null)
-			return -1;
-
 		for (int i = 0; i < size; i++)
-			if (elements[translate(i)].equals(e))
+			if (elements[translate(i)] == null ? e == null
+					: elements[translate(i)].equals(e))
 				return i;
 		return -1;
 	}
