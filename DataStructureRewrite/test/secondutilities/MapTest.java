@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class MapTest {
 
-	private static final int LIMIT = 1000;
+	private static final int LIMIT = 100;
 	private static final int SIZE = 50;
 
 	private Map<Integer, Integer>[] maps;
@@ -17,7 +17,8 @@ public class MapTest {
 	public void setUp() throws Exception {
 		maps = (Map<Integer, Integer>[]) new Map[] {
 				new ListMap<Integer, Integer>(),
-				new LinkedHashMap<Integer, Integer>() };
+				new LinkedHashMap<Integer, Integer>(),
+				new LinkedProbeMap<Integer, Integer>() };
 	}
 
 	@Test
@@ -102,11 +103,12 @@ public class MapTest {
 		for (int i = 0; i < maps.length; i++) {
 			for (int j = 0; j < LIMIT; j++)
 				maps[i].put(j, 2 * j);
-			long start = System.nanoTime();
 			for (int j = 0; j < LIMIT; j++)
-				maps[i].remove(LIMIT - j);
+				maps[i].remove((3 * j) / 2);
+			long start = System.nanoTime();
+			for (int j = 0; j < LIMIT / 2; j++)
+				maps[i].get(((3 * j) / 2) + 1);
 			System.out.println(System.nanoTime() - start);
 		}
 	}
-
 }

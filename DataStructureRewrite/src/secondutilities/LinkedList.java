@@ -61,7 +61,7 @@ public class LinkedList<E> extends AbstractList<E> {
 	}
 
 	/**
-	 * Much slower than other implementaions.
+	 * Much slower than other implementations.
 	 */
 	@Override
 	public E set(int index, E e) {
