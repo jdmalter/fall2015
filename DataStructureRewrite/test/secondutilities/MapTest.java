@@ -18,7 +18,8 @@ public class MapTest {
 		maps = (Map<Integer, Integer>[]) new Map[] {
 				new ListMap<Integer, Integer>(),
 				new LinkedHashMap<Integer, Integer>(),
-				new LinkedProbeMap<Integer, Integer>() };
+				new LinkedProbeMap<Integer, Integer>(),
+				new IdentityLinkedHashMap<Integer, Integer>() };
 	}
 
 	@Test
