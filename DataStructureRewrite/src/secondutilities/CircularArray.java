@@ -1,6 +1,6 @@
 package secondutilities;
 
-public class CircularArray<E> extends AbstractList<E> {
+public class CircularArray<E> implements List<E> {
 
 	private static final int INITIAL_CAPACITY = 31;
 

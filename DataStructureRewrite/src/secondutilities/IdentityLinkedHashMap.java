@@ -1,6 +1,6 @@
 package secondutilities;
 
-public class IdentityLinkedHashMap<K, V> extends AbstractMap<K, V> {
+public class IdentityLinkedHashMap<K, V> implements Map<K, V> {
 
 	private static class Entry<K, V> {
 		private K key;

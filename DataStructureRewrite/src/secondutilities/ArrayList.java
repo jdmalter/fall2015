@@ -1,6 +1,6 @@
 package secondutilities;
 
-public class ArrayList<E> extends AbstractList<E> {
+public class ArrayList<E> implements List<E> {
 
 	private static final int INITIAL_CAPACITY = 31;
 

@@ -16,7 +16,6 @@ public class MapTest {
 	@Before
 	public void setUp() throws Exception {
 		maps = (Map<Integer, Integer>[]) new Map[] {
-				new ListMap<Integer, Integer>(),
 				new LinkedHashMap<Integer, Integer>(),
 				new LinkedProbeMap<Integer, Integer>(),
 				new IdentityLinkedHashMap<Integer, Integer>() };
@@ -25,7 +24,7 @@ public class MapTest {
 	@Test
 	public void testPut() {
 		for (int i = 0; i < maps.length; i++) {
-			assertEquals(maps[i].isEmpty(), true);
+			assertEquals(maps[i].size(), 0);
 			for (int j = 0; j < SIZE; j++) {
 				assertEquals(maps[i].size(), j);
 				assertEquals(maps[i].put(j, j), null);
@@ -78,11 +77,6 @@ public class MapTest {
 	@Test
 	public void testSize() {
 		testPut();
-	}
-
-	@Test
-	public void testIsEmpty() {
-		testRemove();
 	}
 
 	@Test

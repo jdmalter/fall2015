@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class DequeTest {
 
-	private static final int LIMIT = 100000;
+	private static final int LIMIT = 100;
 
 	private Deque<Integer>[] deques;
 

@@ -12,8 +12,6 @@ public interface Map<K, V> {
 
 	int size();
 
-	boolean isEmpty();
-
 	Iterator<K> keyIterator();
 
 }

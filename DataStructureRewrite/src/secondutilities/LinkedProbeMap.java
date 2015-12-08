@@ -1,6 +1,6 @@
 package secondutilities;
 
-public class LinkedProbeMap<K, V> extends AbstractMap<K, V> {
+public class LinkedProbeMap<K, V> implements Map<K, V> {
 
 	private static class Entry<K, V> {
 		private K key;

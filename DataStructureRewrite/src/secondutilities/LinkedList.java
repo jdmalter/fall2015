@@ -1,6 +1,6 @@
 package secondutilities;
 
-public class LinkedList<E> extends AbstractList<E> {
+public class LinkedList<E> implements List<E> {
 
 	private static class Node<E> {
 

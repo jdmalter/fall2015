@@ -16,8 +16,6 @@ public interface Deque<E> {
 
 	int size();
 
-	boolean isEmpty();
-
 	Iterator<E> iterator();
 
 }

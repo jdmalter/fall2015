@@ -71,16 +71,6 @@ public class ListTest {
 	}
 
 	@Test
-	public void testContains() {
-		testAdd();
-		for (int i = 0; i < lists.length; i++) {
-			assertEquals(lists[i].contains(INVALID), false);
-			assertEquals(lists[i].indexOf(null), -1);
-			assertEquals(lists[i].contains(0), true);
-		}
-	}
-
-	@Test
 	public void testGet() {
 		testSet();
 		for (int i = 0; i < lists.length; i++) {
@@ -107,7 +97,7 @@ public class ListTest {
 						2 * (2 * (SIZE / 3) - j - 1));
 			lists[i].add(lists[i].size() / 2, null);
 			System.out.println(i);
-			assertEquals(lists[i].contains(null), true);
+			assertEquals(lists[i].indexOf(null) >= 0, true);
 			assertEquals(lists[i].remove(lists[i].indexOf(null)), null);
 		}
 	}
@@ -115,17 +105,6 @@ public class ListTest {
 	@Test
 	public void testSize() {
 		testAdd();
-	}
-
-	@Test
-	public void testIsEmpty() {
-		for (int i = 0; i < lists.length; i++) {
-			assertEquals(lists[i].isEmpty(), true);
-		}
-		testSize();
-		for (int i = 0; i < lists.length; i++) {
-			assertEquals(lists[i].isEmpty(), false);
-		}
 	}
 
 	@Test

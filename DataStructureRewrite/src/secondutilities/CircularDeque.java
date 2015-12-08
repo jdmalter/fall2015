@@ -50,11 +50,6 @@ public class CircularDeque<E> implements Deque<E> {
 	}
 
 	@Override
-	public boolean isEmpty() {
-		return list.isEmpty();
-	}
-
-	@Override
 	public Iterator<E> iterator() {
 		return list.iterator();
 	}
