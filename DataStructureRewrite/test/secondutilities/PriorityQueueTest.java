@@ -16,6 +16,8 @@ public class PriorityQueueTest {
 
 		@Override
 		public int compareTo(TestInteger other) {
+			if (other == null)
+				return 1;
 			if (integer > other.integer)
 				return 1;
 			return integer == other.integer ? 0 : -1;
@@ -32,7 +34,7 @@ public class PriorityQueueTest {
 	@Before
 	public void setUp() throws Exception {
 		queues = (PriorityQueue<TestInteger, TestInteger>[]) new PriorityQueue[] { new ArrayPriorityQueue<TestInteger, TestInteger>(
-				null) };
+				null), };
 		integers = new TestInteger[SIZE];
 		for (int i = 0; i < SIZE; i++)
 			integers[i] = new TestInteger(i);

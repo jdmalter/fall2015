@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class MapTest {
 
-	private static final int LIMIT = 100;
+	private static final int LIMIT = 1000000;
 	private static final int SIZE = 50;
 
 	private Map<Integer, Integer>[] maps;
