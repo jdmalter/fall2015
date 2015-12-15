@@ -33,8 +33,10 @@ public class PriorityQueueTest {
 	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
-		queues = (PriorityQueue<TestInteger, TestInteger>[]) new PriorityQueue[] { new ArrayPriorityQueue<TestInteger, TestInteger>(
-				null), };
+		queues = (PriorityQueue<TestInteger, TestInteger>[]) new PriorityQueue[] {
+				new ArrayPriorityQueue<TestInteger, TestInteger>(null),
+				new UnsortedPriorityQueue<TestInteger, TestInteger>(null),
+				new SortedPriorityQueue<TestInteger, TestInteger>(null) };
 		integers = new TestInteger[SIZE];
 		for (int i = 0; i < SIZE; i++)
 			integers[i] = new TestInteger(i);
