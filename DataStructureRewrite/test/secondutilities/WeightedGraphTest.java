@@ -5,17 +5,17 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class UndirectedGraphTest {
+public class WeightedGraphTest {
 
 	private static final int SIZE = 50;
 	private static final int SMALL_SIZE = 10;
 
-	private UndirectedGraph<Integer>[] graphs;
+	private WeightedGraph<Integer>[] graphs;
 
 	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
-		graphs = (UndirectedGraph<Integer>[]) new UndirectedGraph[] { new AdjacencyMapGraph<Integer>() };
+		graphs = (WeightedGraph<Integer>[]) new WeightedGraph[] { new AdjacencyMapGraph<Integer>() };
 	}
 
 	@Test
@@ -133,7 +133,7 @@ public class UndirectedGraphTest {
 				graphs[i].addEdge(j, 2 * j + 1);
 				graphs[i].addEdge(j, 2 * j + 2);
 			}
-			UndirectedGraph<Integer> tree = graphs[i].shortestPathTree(0);
+			Graph<Integer> tree = graphs[i].shortestPathTree(0);
 			assertEquals(tree.sizeVertices(), SIZE);
 			assertEquals(tree.sizeEdges(), SIZE - 1);
 			assertEquals(tree.degree(0), 2);
@@ -145,8 +145,8 @@ public class UndirectedGraphTest {
 		testAddEdge();
 		for (int i = 0; i < graphs.length; i++) {
 			for (int j = 0; j < SIZE / SMALL_SIZE; j++) {
-				UndirectedGraph<Integer> component = graphs[i]
-						.connectedComponent(j * SMALL_SIZE);
+				Graph<Integer> component = graphs[i].connectedComponent(j
+						* SMALL_SIZE);
 				assertEquals(component.sizeVertices(), SMALL_SIZE);
 			}
 			assertEquals(graphs[i].connectedComponent(-1).sizeVertices(), 0);
@@ -200,4 +200,48 @@ public class UndirectedGraphTest {
 		}
 	}
 
+	@Test
+	public void testAddEdgeVVInt() {
+		testAddVertex();
+		for (int i = 0; i < graphs.length; i++) {
+			for (int j = 0; j < SIZE / SMALL_SIZE; j++)
+				for (int k = 0; k < SMALL_SIZE - 1; k++) {
+					int vertex = (j * SMALL_SIZE) + k;
+					int size = graphs[i].sizeEdges();
+					graphs[i].addEdge(vertex, vertex + 1, vertex);
+					assertEquals(graphs[i].sizeEdges(), size + 1);
+				}
+		}
+	}
+
+	@Test
+	public void testGetEdgeWeight() {
+		testAddEdgeVVInt();
+		for (int i = 0; i < graphs.length; i++) {
+			for (int j = 0; j < SIZE / SMALL_SIZE; j++)
+				for (int k = 0; k < SMALL_SIZE - 1; k++) {
+					int vertex = (j * SMALL_SIZE) + k;
+					int weight = graphs[i].getEdgeWeight(vertex, vertex + 1);
+					assertEquals(weight, vertex);
+				}
+			assertEquals(graphs[i].getEdgeWeight(-1, -1), 0);
+		}
+	}
+
+	@Test
+	public void testSetEdgeWeight() {
+		testAddEdgeVVInt();
+		for (int i = 0; i < graphs.length; i++) {
+			for (int j = 0; j < SIZE / SMALL_SIZE; j++)
+				for (int k = 0; k < SMALL_SIZE - 1; k++) {
+					int vertex = (j * SMALL_SIZE) + k;
+					int weight = graphs[i].setEdgeWeight(vertex, vertex + 1,
+							2 * vertex);
+					assertEquals(weight, vertex);
+					weight = graphs[i].getEdgeWeight(vertex, vertex + 1);
+					assertEquals(weight, 2 * vertex);
+				}
+			assertEquals(graphs[i].setEdgeWeight(-1, -1, -1), 0);
+		}
+	}
 }

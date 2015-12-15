@@ -1,28 +1,23 @@
 package secondutilities;
 
-public class AdjacencyMapGraph<V> implements UndirectedGraph<V> {
+public class AdjacencyMapGraph<V> implements WeightedGraph<V> {
 
 	private int edgeSize;
-	private Map<V, Map<V, V>> vertices;
+	private Map<V, Map<V, Integer>> vertices;
 
 	public AdjacencyMapGraph() {
-		vertices = new LinkedHashMap<V, Map<V, V>>();
+		vertices = new LinkedHashMap<V, Map<V, Integer>>();
 	}
 
 	@Override
 	public void addVertex(V v) {
 		if (!vertices.containsKey(v))
-			vertices.put(v, new LinkedHashMap<V, V>());
+			vertices.put(v, new LinkedHashMap<V, Integer>());
 	}
 
 	@Override
 	public void addEdge(V v, V u) {
-		if (!vertices.containsKey(v) || !vertices.containsKey(u)
-				|| containsEdge(v, u))
-			return;
-		vertices.get(v).put(u, u);
-		vertices.get(u).put(v, v);
-		edgeSize++;
+		addEdge(v, u, 1);
 	}
 
 	@Override
@@ -64,8 +59,8 @@ public class AdjacencyMapGraph<V> implements UndirectedGraph<V> {
 	}
 
 	@Override
-	public UndirectedGraph<V> shortestPathTree(V v) {
-		UndirectedGraph<V> spt = new AdjacencyMapGraph<V>();
+	public Graph<V> shortestPathTree(V v) {
+		Graph<V> spt = new AdjacencyMapGraph<V>();
 		Deque<V> queue = new LinkedDeque<V>();
 		queue.addLast(v);
 		spt.addVertex(v);
@@ -85,8 +80,8 @@ public class AdjacencyMapGraph<V> implements UndirectedGraph<V> {
 	}
 
 	@Override
-	public UndirectedGraph<V> connectedComponent(V v) {
-		UndirectedGraph<V> graph = new AdjacencyMapGraph<V>();
+	public Graph<V> connectedComponent(V v) {
+		Graph<V> graph = new AdjacencyMapGraph<V>();
 		if (!vertices.containsKey(v))
 			return graph;
 		Deque<V> stack = new LinkedDeque<V>();
@@ -120,7 +115,7 @@ public class AdjacencyMapGraph<V> implements UndirectedGraph<V> {
 	public void removeEdge(V v, V u) {
 		if (!vertices.containsKey(v) || !vertices.containsKey(u))
 			return;
-		if (vertices.get(v).containsKey(u) && vertices.get(u).containsKey(v)) {
+		if (vertices.get(v).containsKey(u)) {
 			vertices.get(v).remove(u);
 			vertices.get(u).remove(v);
 			edgeSize--;
@@ -142,6 +137,30 @@ public class AdjacencyMapGraph<V> implements UndirectedGraph<V> {
 		if (!vertices.containsKey(v))
 			return 0;
 		return vertices.get(v).size();
+	}
+
+	@Override
+	public void addEdge(V v, V u, int weight) {
+		if (!vertices.containsKey(v) || !vertices.containsKey(u)
+				|| containsEdge(v, u))
+			return;
+		vertices.get(v).put(u, weight);
+		vertices.get(u).put(v, weight);
+		edgeSize++;
+	}
+
+	@Override
+	public int getEdgeWeight(V v, V u) {
+		if (!containsEdge(v, u))
+			return 0;
+		return vertices.get(v).get(u).intValue();
+	}
+
+	@Override
+	public int setEdgeWeight(V v, V u, int weight) {
+		if (!containsEdge(v, u))
+			return 0;
+		return vertices.get(v).put(u, weight);
 	}
 
 }

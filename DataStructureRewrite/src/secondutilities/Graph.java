@@ -1,6 +1,6 @@
 package secondutilities;
 
-public interface UndirectedGraph<V> {
+public interface Graph<V> {
 
 	void addVertex(V v);
 
@@ -16,9 +16,9 @@ public interface UndirectedGraph<V> {
 
 	Iterator<V> sharedVerticies(V v, V u);
 
-	UndirectedGraph<V> shortestPathTree(V v);
+	Graph<V> shortestPathTree(V v);
 
-	UndirectedGraph<V> connectedComponent(V v);
+	Graph<V> connectedComponent(V v);
 
 	void removeVertex(V v);
 
