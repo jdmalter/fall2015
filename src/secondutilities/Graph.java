@@ -20,6 +20,8 @@ public interface Graph<V> {
 
 	Graph<V> connectedComponent(V v);
 
+	Iterator<Graph<V>> connectedComponents();
+
 	void removeVertex(V v);
 
 	void removeEdge(V v, V u);

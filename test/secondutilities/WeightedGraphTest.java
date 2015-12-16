@@ -10,12 +10,12 @@ public class WeightedGraphTest {
 	private static final int SIZE = 50;
 	private static final int SMALL_SIZE = 10;
 
-	private WeightedGraph<Integer>[] graphs;
+	private UndirectedWeightedGraph<Integer>[] graphs;
 
 	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
-		graphs = (WeightedGraph<Integer>[]) new WeightedGraph[] { new AdjacencyMapGraph<Integer>() };
+		graphs = (UndirectedWeightedGraph<Integer>[]) new UndirectedWeightedGraph[] { new AdjacencyMapGraph<Integer>() };
 	}
 
 	@Test
@@ -154,6 +154,30 @@ public class WeightedGraphTest {
 	}
 
 	@Test
+	public void testConnectedComponents() {
+		testAddVertex();
+		for (int i = 0; i < graphs.length; i++) {
+			Iterator<Graph<Integer>> components = graphs[i]
+					.connectedComponents();
+			for (int j = 0; j < SIZE; j++) {
+				Graph<Integer> component = components.next();
+				assertEquals(component.sizeVertices(), 1);
+				assertEquals(component.sizeEdges(), 0);
+			}
+			assertEquals(components.hasNext(), false);
+			for (int j = 0; j < SIZE - 1; j += 2)
+				graphs[i].addEdge(j, j + 1);
+			components = graphs[i].connectedComponents();
+			for (int j = 0; j < SIZE / 2; j++) {
+				Graph<Integer> component = components.next();
+				assertEquals(component.sizeVertices(), 2);
+				assertEquals(component.sizeEdges(), 1);
+			}
+			assertEquals(components.hasNext(), false);
+		}
+	}
+
+	@Test
 	public void testRemoveVertex() {
 		testAddVertex();
 		for (int i = 0; i < graphs.length; i++) {
@@ -244,4 +268,68 @@ public class WeightedGraphTest {
 			assertEquals(graphs[i].setEdgeWeight(-1, -1, -1), 0);
 		}
 	}
+
+	public void setUpMST() {
+		for (int i = 0; i < graphs.length; i++) {
+			Iterator<Integer> it = graphs[i].vertices();
+			while (it.hasNext())
+				graphs[i].removeVertex(it.next());
+			for (int j = 0; j < 10; j++)
+				graphs[i].addVertex(j);
+			graphs[i].addEdge(0, 1, 2);
+			graphs[i].addEdge(1, 2, 3);
+			graphs[i].addEdge(2, 0, 4);
+			graphs[i].addEdge(1, 4, 9);
+			graphs[i].addEdge(2, 3, 4);
+			graphs[i].addEdge(2, 8, 8);
+			graphs[i].addEdge(3, 4, 1);
+			graphs[i].addEdge(4, 5, 5);
+			graphs[i].addEdge(5, 6, 4);
+			graphs[i].addEdge(6, 3, 3);
+			graphs[i].addEdge(6, 8, 6);
+			graphs[i].addEdge(7, 8, 5);
+			graphs[i].addEdge(8, 9, 6);
+			graphs[i].addEdge(9, 7, 7);
+		}
+	}
+
+	@Test
+	public void testBoruvka() {
+		setUpMST();
+		for (int i = 0; i < graphs.length; i++) {
+			UndirectedWeightedGraph<Integer> graph = graphs[i].boruvka();
+			assertEquals(graph.sizeVertices(), 10);
+			assertEquals(graph.sizeEdges(), 9);
+			assertEquals(graph.containsVertex(0), true);
+			Iterator<Integer> edges = graph.adjacentVertices(0);
+			assertEquals(edges.next().intValue(), 1);
+			assertEquals(edges.hasNext(), false);
+			graph.removeVertex(0);
+			edges = graph.adjacentVertices(1);
+			assertEquals(edges.next().intValue(), 2);
+			assertEquals(edges.hasNext(), false);
+			graph.removeVertex(1);
+			edges = graph.adjacentVertices(2);
+			assertEquals(edges.next().intValue(), 3);
+			assertEquals(edges.hasNext(), false);
+			graph.removeVertex(2);
+			edges = graph.adjacentVertices(3);
+			assertEquals(edges.next().intValue(), 4);
+			assertEquals(edges.next().intValue(), 6);
+			assertEquals(edges.hasNext(), false);
+			graph.removeVertex(3);
+			graph.removeVertex(4);
+			edges = graph.adjacentVertices(6);
+			assertEquals(edges.next().intValue(), 5);
+			assertEquals(edges.next().intValue(), 8);
+			assertEquals(edges.hasNext(), false);
+			graph.removeVertex(5);
+			graph.removeVertex(6);
+			edges = graph.adjacentVertices(8);
+			assertEquals(edges.next().intValue(), 7);
+			assertEquals(edges.next().intValue(), 9);
+			assertEquals(edges.hasNext(), false);
+		}
+	}
+
 }

@@ -36,6 +36,10 @@ public class ArrayPriorityQueue<K extends Comparable<K>, V> implements
 	private Comparator<K> comparator;
 	private Entry<K, V>[] entries;
 
+	public ArrayPriorityQueue() {
+		this(null);
+	}
+
 	@SuppressWarnings("unchecked")
 	public ArrayPriorityQueue(Comparator<K> comparator) {
 		this.comparator = comparator == null ? (left, right) -> {
