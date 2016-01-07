@@ -60,7 +60,12 @@ public class PriorityQueueTest {
 	}
 
 	@Test
-	public void testPeek() {
+	public void testPeekKey() {
+		testRemove();
+	}
+
+	@Test
+	public void testPeekValue() {
 		testRemove();
 	}
 
@@ -71,13 +76,15 @@ public class PriorityQueueTest {
 			assertEquals(queues[i].size(), SIZE);
 			for (int j = 0; j < SIZE; j++) {
 				assertEquals(queues[i].size(), SIZE - j);
-				assertEquals(queues[i].peek().integer, SIZE - j - 1);
+				assertEquals(queues[i].peekKey().integer, SIZE - j - 1);
+				assertEquals(queues[i].peekValue().integer, SIZE - j - 1);
 				assertEquals(queues[i].size(), SIZE - j);
 				assertEquals(queues[i].remove().integer, SIZE - j - 1);
 				assertEquals(queues[i].size(), SIZE - j - 1);
 			}
 			assertEquals(queues[i].size(), 0);
-			assertEquals(queues[i].peek(), null);
+			assertEquals(queues[i].peekKey(), null);
+			assertEquals(queues[i].peekValue(), null);
 			assertEquals(queues[i].remove(), null);
 		}
 	}

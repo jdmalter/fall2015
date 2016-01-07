@@ -1,6 +1,5 @@
 package secondutilities;
 
-
 public class SortedPriorityQueue<K extends Comparable<K>, V> implements
 		PriorityQueue<K, V> {
 
@@ -80,7 +79,17 @@ public class SortedPriorityQueue<K extends Comparable<K>, V> implements
 	 * Very fast, best speed
 	 */
 	@Override
-	public V peek() {
+	public K peekKey() {
+		if (size == 0)
+			return null;
+		return head.key;
+	}
+
+	/**
+	 * Very fast, best speed
+	 */
+	@Override
+	public V peekValue() {
 		if (size == 0)
 			return null;
 		return head.value;

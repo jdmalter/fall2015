@@ -186,51 +186,51 @@ public class AdjacencyMapGraph<V> implements UndirectedWeightedGraph<V> {
 	@Override
 	public UndirectedWeightedGraph<V> boruvka() {
 		UndirectedWeightedGraph<V> mst = new AdjacencyMapGraph<V>();
-		if (sizeVertices() < 1)
-			return mst;
-		else if (sizeVertices() < 2) {
-			mst.addVertex(vertices().next());
-			return mst;
-		}
 		Iterator<V> it = vertices.keyIterator();
 		while (it.hasNext())
 			mst.addVertex(it.next());
 		while (mst.sizeEdges() < mst.sizeVertices() - 1) {
 			Iterator<Graph<V>> components = mst.connectedComponents();
-			while (components.hasNext()) {
-				Graph<V> component = components.next();
-				class Edge {
-					private V outgoing, ingoing;
-					private int weight;
-
-					private Edge(V outgoing, V ingoing, int weight) {
-						this.outgoing = outgoing;
-						this.ingoing = ingoing;
-						this.weight = weight;
-					}
-				}
-				Edge minimumEdge = null;
-				Iterator<V> vertices = component.vertices();
-				while (vertices.hasNext()) {
-					V vertex = vertices.next();
-					Iterator<V> edges = adjacentVertices(vertex);
-					while (edges.hasNext()) {
-						V edge = edges.next();
-						int weight = getEdgeWeight(vertex, edge);
-						if (!component.containsVertex(edge)
-								&& (minimumEdge == null || weight < minimumEdge.weight))
-							minimumEdge = new Edge(vertex, edge, weight);
-					}
-				}
-				if (minimumEdge != null
-						&& !mst.containsEdge(minimumEdge.outgoing,
-								minimumEdge.ingoing))
-					mst.addEdge(minimumEdge.outgoing, minimumEdge.ingoing,
-							minimumEdge.weight);
-
-			}
+			while (components.hasNext())
+				addMinimumEdge(components.next(), mst);
 		}
 		return mst;
+	}
+
+	@Override
+	public UndirectedWeightedGraph<V> dijkstra(V v) {
+		if (!vertices.containsKey(v))
+			return new AdjacencyMapGraph<V>();
+		UndirectedWeightedGraph<V> spt = new AdjacencyMapGraph<V>();
+		return spt;
+	}
+
+	private void addMinimumEdge(Graph<V> component, WeightedGraph<V> mst) {
+		class Edge {
+			private V outgoing, ingoing;
+			private int weight;
+
+			private Edge(V outgoing, V ingoing, int weight) {
+				this.outgoing = outgoing;
+				this.ingoing = ingoing;
+				this.weight = weight;
+			}
+		}
+		Edge edge = null;
+		Iterator<V> vertices = component.vertices();
+		while (vertices.hasNext()) {
+			V vertex = vertices.next();
+			Iterator<V> edges = adjacentVertices(vertex);
+			while (edges.hasNext()) {
+				V opposite = edges.next();
+				int weight = getEdgeWeight(vertex, opposite);
+				if (!component.containsVertex(opposite)
+						&& (edge == null || weight < edge.weight))
+					edge = new Edge(vertex, opposite, weight);
+			}
+		}
+		if (edge != null && !mst.containsEdge(edge.outgoing, edge.ingoing))
+			mst.addEdge(edge.outgoing, edge.ingoing, edge.weight);
 	}
 
 }

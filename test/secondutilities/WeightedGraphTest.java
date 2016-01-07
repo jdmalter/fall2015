@@ -269,30 +269,6 @@ public class WeightedGraphTest {
 		}
 	}
 
-	public void setUpMST() {
-		for (int i = 0; i < graphs.length; i++) {
-			Iterator<Integer> it = graphs[i].vertices();
-			while (it.hasNext())
-				graphs[i].removeVertex(it.next());
-			for (int j = 0; j < 10; j++)
-				graphs[i].addVertex(j);
-			graphs[i].addEdge(0, 1, 2);
-			graphs[i].addEdge(1, 2, 3);
-			graphs[i].addEdge(2, 0, 4);
-			graphs[i].addEdge(1, 4, 9);
-			graphs[i].addEdge(2, 3, 4);
-			graphs[i].addEdge(2, 8, 8);
-			graphs[i].addEdge(3, 4, 1);
-			graphs[i].addEdge(4, 5, 5);
-			graphs[i].addEdge(5, 6, 4);
-			graphs[i].addEdge(6, 3, 3);
-			graphs[i].addEdge(6, 8, 6);
-			graphs[i].addEdge(7, 8, 5);
-			graphs[i].addEdge(8, 9, 6);
-			graphs[i].addEdge(9, 7, 7);
-		}
-	}
-
 	@Test
 	public void testBoruvka() {
 		setUpMST();
@@ -329,6 +305,56 @@ public class WeightedGraphTest {
 			assertEquals(edges.next().intValue(), 7);
 			assertEquals(edges.next().intValue(), 9);
 			assertEquals(edges.hasNext(), false);
+		}
+	}
+
+	@Test
+	public void testDijkstra() {
+		setUpSPT();
+		for (int i = 0; i < graphs.length; i++) {
+		}
+	}
+
+	private void setUpMST() {
+		for (int i = 0; i < graphs.length; i++) {
+			Iterator<Integer> it = graphs[i].vertices();
+			while (it.hasNext())
+				graphs[i].removeVertex(it.next());
+			for (int j = 0; j < 10; j++)
+				graphs[i].addVertex(j);
+			graphs[i].addEdge(0, 1, 2);
+			graphs[i].addEdge(1, 2, 3);
+			graphs[i].addEdge(2, 0, 4);
+			graphs[i].addEdge(1, 4, 9);
+			graphs[i].addEdge(2, 3, 4);
+			graphs[i].addEdge(2, 8, 8);
+			graphs[i].addEdge(3, 4, 1);
+			graphs[i].addEdge(4, 5, 5);
+			graphs[i].addEdge(5, 6, 4);
+			graphs[i].addEdge(6, 3, 3);
+			graphs[i].addEdge(6, 8, 6);
+			graphs[i].addEdge(7, 8, 5);
+			graphs[i].addEdge(8, 9, 6);
+			graphs[i].addEdge(9, 7, 7);
+		}
+	}
+
+	private void setUpSPT() {
+		for (int i = 0; i < graphs.length; i++) {
+			Iterator<Integer> it = graphs[i].vertices();
+			while (it.hasNext())
+				graphs[i].removeVertex(it.next());
+			for (int j = 0; j < 6; j++)
+				graphs[i].addVertex(j);
+			graphs[i].addEdge(0, 1, 8);
+			graphs[i].addEdge(0, 2, 2);
+			graphs[i].addEdge(0, 3, 4);
+			graphs[i].addEdge(1, 2, 7);
+			graphs[i].addEdge(1, 4, 2);
+			graphs[i].addEdge(2, 3, 1);
+			graphs[i].addEdge(2, 4, 3);
+			graphs[i].addEdge(2, 5, 9);
+			graphs[i].addEdge(3, 5, 5);
 		}
 	}
 

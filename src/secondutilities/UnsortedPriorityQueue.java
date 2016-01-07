@@ -64,7 +64,28 @@ public class UnsortedPriorityQueue<K extends Comparable<K>, V> implements
 	 * Very slow
 	 */
 	@Override
-	public V peek() {
+	public K peekKey() {
+		if (size == 0)
+			return null;
+		else if (size == 1)
+			return head.key;
+		else {
+			Entry<K, V> max = head;
+			Entry<K, V> current = head.next;
+			while (current != null) {
+				if (comparator.compare(current.key, max.key) > 0)
+					max = current;
+				current = current.next;
+			}
+			return max.key;
+		}
+	}
+
+	/**
+	 * Very slow
+	 */
+	@Override
+	public V peekValue() {
 		if (size == 0)
 			return null;
 		else if (size == 1)

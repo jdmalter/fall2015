@@ -77,7 +77,12 @@ public class ArrayPriorityQueue<K extends Comparable<K>, V> implements
 	}
 
 	@Override
-	public V peek() {
+	public K peekKey() {
+		return size == 0 ? null : entries[0].key;
+	}
+
+	@Override
+	public V peekValue() {
 		return size == 0 ? null : entries[0].value;
 	}
 
